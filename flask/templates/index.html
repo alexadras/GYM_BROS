@@ -11,17 +11,15 @@
     {% else %}
     <table>
         <tr>
-            <th>Task</th>
-            <th>Added</th>
-            <th>Actions</th>
+            <th>Exercise</th>
+            <th>Volume</th>
+            <th>Action</th>
         </tr>
         {% for task in tasks %}
             <tr>
-                <th>{{ task.content}}</th>
-                <th>{{ task.date_created.date()  }}</th>
+                <th>{{ task.exercise}}</th>
+                <th>{{ task.vol  }}</th>
                 <th>
-                    <a href="/update/{{task.id}}">Update</a>
-                    <br>
                     <a href="/delete/{{task.id}}">Delete</a>
                 </th>
             </tr>
@@ -30,8 +28,14 @@
     {% endif %}
     <div class="form"> 
         <form action="/" method="POST">
-            <input type="text" name="content" id="content">
-            <input type="submit" value="Add Task">
+            <table>
+                <tr>
+                    <th> <h8>Exercise</h8></p><input type="text" name="exercise" id="exercise"></th>
+                    <th> <h8>Volume</h8></p><input type="number" name="vol" id="vol"></th>
+                    <th> <input type="submit" value="Add Task"> </th>
+                </tr>
+            </table>
+            
         </from>
     </div>
 </div>

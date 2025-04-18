@@ -8,18 +8,25 @@ db = SQLAlchemy(app)
 
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String(200), nullable=False)
+    exercise = db.Column(db.String(200), nullable=False)
+    vol = db.Column(db.Integer, primary_key=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
         return '<Task %r>' % self.id
 
+with app.app_context():
+    db.create_all() 
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
-        task_content = request.form['content']
-        new_task = Todo(content=task_content)
+        vol_content = request.form['vol']
+        exercise_content = request.form['exercise']
+        new_task = Todo(
+            exercise=exercise_content,
+            vol = vol_content
+            )
 
         try:
             db.session.add(new_task)
