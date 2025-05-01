@@ -10,6 +10,7 @@ class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     exercise = db.Column(db.String(200), nullable=False)
     vol = db.Column(db.Integer, primary_key=False)
+    date_done = db.Column(db.DateTime,  nullable=True)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
@@ -23,9 +24,13 @@ def index():
     if request.method == 'POST':
         vol_content = request.form['vol']
         exercise_content = request.form['exercise']
+        date_done_content_str = request.form['date_done']
+         # Converter string '2025-04-18' para objeto datetime.date
+        date_done_content = datetime.strptime(date_done_content_str, '%Y-%m-%d').date()
         new_task = Todo(
             exercise=exercise_content,
-            vol = vol_content
+            vol = vol_content,
+            date_done= date_done_content
             )
 
         try:
